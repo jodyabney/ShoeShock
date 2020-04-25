@@ -138,7 +138,6 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
                 navigationItem.backBarButtonItem = barButton
                 
                 // pass the product data
-                assert(productForDetailVC as? Product != nil)
                 detailsVC.initProductDetail(for: productForDetailVC!)
             }
         }

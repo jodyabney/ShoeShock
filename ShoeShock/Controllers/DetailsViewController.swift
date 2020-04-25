@@ -17,7 +17,14 @@ class DetailsViewController: UIViewController {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var productImageView: UIImageView!
     
-    
+    let currencyFormatter: NumberFormatter = {
+        let nf = NumberFormatter()
+        nf.numberStyle = .currency
+        nf.currencySymbol = Locale.current.currencySymbol
+        nf.currencyDecimalSeparator = Locale.current.decimalSeparator
+        return nf
+    }()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +40,8 @@ class DetailsViewController: UIViewController {
     func updateView() {
         manufacturerLabel.text = product!.manufacturerID.rawValue
         titleLabel.text = product!.title
-        priceLabel.text = product!.price
+        let price = Double(product!.price)!
+        priceLabel.text = currencyFormatter.string(from: NSNumber(value: price))
         productImageView.image = UIImage(named: product!.imageName)
         
         navigationItem.title = (product?.manufacturerID.rawValue)! + " " + product!.title

@@ -30,6 +30,15 @@ class ProductCollectionViewCell: UICollectionViewCell {
     @IBAction func addToCartTapped(_ sender: UIButton) {        
         addToCartButtonAction?()
     }
+
+    
+    let currencyFormatter: NumberFormatter = {
+        let nf = NumberFormatter()
+        nf.numberStyle = .currency
+        nf.currencySymbol = Locale.current.currencySymbol
+        nf.currencyDecimalSeparator = Locale.current.decimalSeparator
+        return nf
+    }()
     
 
     func updateView(for product: Product) {
@@ -37,7 +46,8 @@ class ProductCollectionViewCell: UICollectionViewCell {
         manufacturerLabel.textColor = .white
         productLabel.text = product.title.uppercased()
         productLabel.textColor = .white
-        priceLabel.text = product.price
+        let price = Double(product.price)!
+        priceLabel.text = currencyFormatter.string(from: NSNumber(value: price))
         priceLabel.textColor = .white
         imageView.image = UIImage(named: product.imageName)
         

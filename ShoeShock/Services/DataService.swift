@@ -12,9 +12,6 @@ class DataService {
     
     static let instance = DataService()
     
-    // initialize cart
-    var shoppingCart = [CartItem]()
-    
     //MARK: - Private datamarts
     
     private let manufacturers: [Manufacturer] = [
@@ -28,27 +25,27 @@ class DataService {
     
     private var products: [Product] = [
         // Reeboks
-        Product(title: "Aztrek", price: "$80.00", imageName: "reebok_aztrek.png",
+        Product(title: "Aztrek", price: "80.00", imageName: "reebok_aztrek.png",
                 manufacturerID: .reebok, market: .shoes, cartIndicator: false),
-        Product(title: "BB4600", price: "$70.00", imageName: "reebok_bb4600.png",
+        Product(title: "BB4600", price: "70.00", imageName: "reebok_bb4600.png",
                 manufacturerID: .reebok, market: .shoes, cartIndicator: false),
-        Product(title: "Classic Leather", price: "$75.00", imageName: "reebok_classic_leather.png",
+        Product(title: "Classic Leather", price: "75.00", imageName: "reebok_classic_leather.png",
                 manufacturerID: .reebok, market: .shoes, cartIndicator: false),
-        Product(title: "Club C", price: "$69.99", imageName: "reebok_club_c.png",
+        Product(title: "Club C", price: "69.99", imageName: "reebok_club_c.png",
                 manufacturerID: .reebok, market: .shoes, cartIndicator: false),
-        Product(title: "Question Mid", price: "$75.00", imageName: "reebok_question_mid.png",
+        Product(title: "Question Mid", price: "75.00", imageName: "reebok_question_mid.png",
                 manufacturerID: .reebok, market: .shoes, cartIndicator: false),
         // Addidas
-        Product(title: "Originals Hardcourt", price: "$99", imageName: "adidas_originals_hardcourt.png",
+        Product(title: "Originals Hardcourt", price: "99", imageName: "adidas_originals_hardcourt.png",
                 manufacturerID: .addidas, market: .shoes, cartIndicator: false),
         // Jordan
-        Product(title: "6 Rings", price: "$99", imageName: "jordan_6_rings.png",
+        Product(title: "6 Rings", price: "99", imageName: "jordan_6_rings.png",
                 manufacturerID: .jordan, market: .shoes, cartIndicator: false),
         // Nike
-        Product(title: "Air Force 1 Low", price: "$99", imageName: "nike_air_force_1_low.png",
+        Product(title: "Air Force 1 Low", price: "99", imageName: "nike_air_force_1_low.png",
                 manufacturerID: .nike, market: .shoes, cartIndicator: false),
         // Puma
-        Product(title: "Clyde Hacked", price: "$99", imageName: "puma_clyde_hacked.png",
+        Product(title: "Clyde Hacked", price: "99", imageName: "puma_clyde_hacked.png",
                 manufacturerID: .puma, market: .shoes, cartIndicator: false)
     ]
     
@@ -57,6 +54,8 @@ class DataService {
         Category(name: "Featured", associatedProducts: nil),
         Category(name: "Upcoming", associatedProducts: nil)
     ]
+    
+    private var shoppingCart: [CartItem] = []
     
     //MARK: - Public datamarts
     
@@ -105,10 +104,8 @@ class DataService {
     }
     
     func changeItemQuantity(cartItem: CartItem, newQuantity: Int) {
-        var item = shoppingCart.first(where: { $0.product == cartItem.product } )!
-        item.quantity = newQuantity
-        
-        //MARK: - TODO: Need to figure out how to change the quanity in the [CartItem] array
+        let itemIndex = shoppingCart.firstIndex(where: { $0.product == cartItem.product } )!
+        shoppingCart[itemIndex].quantity = newQuantity
     }
     
     func removeCartItem(cartItem: CartItem) {
@@ -116,5 +113,27 @@ class DataService {
         shoppingCart.remove(at: itemPosition)
         let productIndex = products.firstIndex(of: cartItem.product)!
         products[productIndex].cartIndicator = false
+    }
+    
+    func getCartTotal() -> Double {
+        guard shoppingCart.count > 0 else {
+            return 0.00
+        }
+        var subtotal: Double = 0.00
+        for item in shoppingCart {
+            subtotal += Double(item.quantity) * Double(item.product.price)!
+        }
+        return subtotal
+    }
+    
+    func getCartItemCount() -> Int {
+        guard shoppingCart.count > 0 else {
+            return 0
+        }
+        var itemCount = 0
+        for item in shoppingCart {
+            itemCount += item.quantity
+        }
+        return itemCount
     }
 }
