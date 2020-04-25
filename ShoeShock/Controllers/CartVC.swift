@@ -18,7 +18,7 @@ class CartVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -36,7 +36,7 @@ class CartVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         if itemCount == 1 {
             numberOfItemsLabel.text = "Total \(itemCount) item"
         } else {
-        numberOfItemsLabel.text = "Total \(itemCount) items"
+            numberOfItemsLabel.text = "Total \(itemCount) items"
         }
         
         // handle button based on cart contents
@@ -51,7 +51,7 @@ class CartVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
     }
     
-//MARK: - TableView Data Source
+    //MARK: - TableView Data Source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return DataService.instance.getCart().count
@@ -60,21 +60,23 @@ class CartVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "CartCell", for: indexPath) as? CartTableViewCell {
             let cartItem = DataService.instance.getCart()[indexPath.row]
-            cell.updateView(cartItem: cartItem!)
-            
+
             cell.stepperButtonAction = {
                 let quantity = Int(cell.quantityLabel.text!)!
                 DataService.instance.changeItemQuantity(cartItem: cartItem!, newQuantity: quantity)
-                self.updateView()
+                
+                if quantity > 0 {
+                    self.updateView()
+                } else {
+                    tableView.reloadData()
+                    self.updateView()
+                }
             }
+            cell.updateView(cartItem: cartItem!)
+            
             return cell
         } else {
             return CartTableViewCell()
         }
     }
-    
-    //MARK: - TODO: What do I need to do if quantity is set to zero? Should I
-    //              remove the item from the cart and, if so, when does it get removed?
-    //              Or, should I only remove the item by allowing the user to click
-    //              remove button?
 }

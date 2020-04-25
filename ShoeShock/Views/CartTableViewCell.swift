@@ -29,11 +29,6 @@ class CartTableViewCell: UITableViewCell {
         self.stepper.addTarget(self, action: #selector(quantityChangeTapped(_:)), for: .touchUpInside)
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
     
     @IBAction func quantityChangeTapped(_ sender: UIStepper) {
         quantityLabel.text = String(Int(sender.value))

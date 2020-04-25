@@ -13,6 +13,8 @@ class ProductsVC: UIViewController, UICollectionViewDelegate, UICollectionViewDa
     @IBOutlet weak var manufacturersCollectionView: UICollectionView!
     @IBOutlet weak var productsCollectionView: UICollectionView!
     
+    @IBOutlet weak var cartButton: UIButton!
+    @IBOutlet weak var cartBadge: UILabel!
     
     // which Manufacturer has been selected - default to All
     var selectedManufacturerID: ValidManufacturers = .all
@@ -27,6 +29,30 @@ class ProductsVC: UIViewController, UICollectionViewDelegate, UICollectionViewDa
         
         productsCollectionView.delegate = self
         productsCollectionView.dataSource = self
+        
+        updateCartIcon()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        updateCartIcon()
+        selectedManufacturerID = .all
+        manufacturersCollectionView.reloadData()
+        productsCollectionView.reloadData()
+    }
+    
+    
+    func updateCartIcon() {
+        let cartCount = DataService.instance.getCartItemCount()
+        if cartCount > 0 {
+            cartButton.setImage(UIImage(systemName: "cart.fill"), for: .normal)
+            cartBadge.isHidden = false
+            cartBadge.text = String(cartCount)
+        } else {
+            cartButton.setImage(UIImage(systemName: "cart"), for: .normal)
+            cartBadge.isHidden = true
+        }
     }
     
     //MARK: - Collection View Data Source Methods
@@ -71,77 +97,83 @@ class ProductsVC: UIViewController, UICollectionViewDelegate, UICollectionViewDa
                 // the code that will be executed when user taps on the addToCart button
                 cell.addToCartButtonAction = {
                     let cartItem = CartItem(product: product, quantity: 1)
-                    DataService.instance.addCartItem(cartItem: cartItem)
-                    
-                    // Set the addToCartButton image to depict the item is now in the cart
-                    // Could not use the ProductCollectionViewCell.update() function without
-                    // reloading the the cell data using reloaddata(at:) function. If I used
-                    // this function, it caused a strange screen behavior where the next cell
-                    // partially and momentarily slid behind the current cell in the collection
-                    // view
-                    cell.addToCartButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                    if cell.addToCartButton.imageView?.image == UIImage(systemName: "heart") {
+                        DataService.instance.addCartItem(cartItem: cartItem)
+                        
+                        // Set the addToCartButton image to depict the item is now in the cart
+                        // Could not use the ProductCollectionViewCell.update() function without
+                        // reloading the the cell data using reloaddata(at:) function. If I used
+                        // this function, it caused a strange screen behavior where the next cell
+                        // partially and momentarily slid behind the current cell in the collection
+                        // view
+                        cell.addToCartButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                    } else {
+                        DataService.instance.removeCartItem(cartItem: cartItem)
+                        cell.addToCartButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                    }
+                    self.updateCartIcon()
                 }
-                                
-                // let the cell update itself
-                cell.updateView(for: product)
-                cell.sizeToFit()
-                return cell
-            } else {
-                return ProductCollectionViewCell()
-            }
-            
-        default:
-            return UICollectionViewCell()
-        }
-        
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        switch collectionView {
-            
-        case manufacturersCollectionView:
-            selectedManufacturerID = DataService.instance.getManufacturers()[indexPath.row].id
-            manufacturersCollectionView.reloadData()
-            productsCollectionView.reloadData()
-            
-        case productsCollectionView:
-            let product = DataService.instance.getProducts(for: selectedManufacturerID)[indexPath.row]
-            productForDetailVC = product
-            performSegue(withIdentifier: "SegueToDetailsVC", sender: productForDetailVC)
-            
-        default:
-            return
-        }
-        
-    }
-    
-    
-    //MARK: - Segue Methods
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "SegueToCartVC" {
-            if let cartVC = segue.destination as? CartVC {
-                // set up back button to only display the arrow (no title)
-                let barButton = UIBarButtonItem()
-                barButton.title = ""
-                navigationItem.backBarButtonItem = barButton
+                    
+                    // let the cell update itself
+                    cell.updateView(for: product)
+                    cell.sizeToFit()
+                    return cell
+                } else {
+                    return ProductCollectionViewCell()
+                }
                 
-                // pass the category data
-                //assert(sender as? Category != nil)
-                //productVC.initProducts(category: sender as! Category)
+                default:
+                return UICollectionViewCell()
             }
-        } else if segue.identifier == "SegueToDetailsVC" {
-            if let detailsVC = segue.destination as? DetailsVC {
-                let barButton = UIBarButtonItem()
-                barButton.title = ""
-                navigationItem.backBarButtonItem = barButton
+            
+        }
+        
+        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            
+            switch collectionView {
                 
-                // pass the product data
-                detailsVC.initProductDetail(for: productForDetailVC!)
+            case manufacturersCollectionView:
+                selectedManufacturerID = DataService.instance.getManufacturers()[indexPath.row].id
+                manufacturersCollectionView.reloadData()
+                productsCollectionView.reloadData()
+                
+            case productsCollectionView:
+                let product = DataService.instance.getProducts(for: selectedManufacturerID)[indexPath.row]
+                productForDetailVC = product
+                performSegue(withIdentifier: "SegueToDetailsVC", sender: productForDetailVC)
+                
+            default:
+                return
+            }
+            
+        }
+        
+        
+        //MARK: - Segue Methods
+        
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if segue.identifier == "SegueToCartVC" {
+                if let cartVC = segue.destination as? CartVC {
+                    // set up back button to only display the arrow (no title)
+                    let barButton = UIBarButtonItem()
+                    barButton.title = ""
+                    navigationItem.backBarButtonItem = barButton
+                    
+                    // pass the category data
+                    //assert(sender as? Category != nil)
+                    //productVC.initProducts(category: sender as! Category)
+                }
+            } else if segue.identifier == "SegueToDetailsVC" {
+                if let detailsVC = segue.destination as? DetailsVC {
+                    let barButton = UIBarButtonItem()
+                    barButton.title = ""
+                    navigationItem.backBarButtonItem = barButton
+                    
+                    // pass the product data
+                    detailsVC.initProductDetail(for: productForDetailVC!)
+                }
             }
         }
-    }
-    
+        
 }
 

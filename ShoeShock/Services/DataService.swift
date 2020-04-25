@@ -93,7 +93,9 @@ class DataService {
     }
     
     func clearCart() {
-        shoppingCart.removeAll()
+        for item in shoppingCart {
+            removeCartItem(cartItem: item)
+        }
     }
     
     func addCartItem(cartItem: CartItem) {
@@ -109,8 +111,13 @@ class DataService {
     }
     
     func changeItemQuantity(cartItem: CartItem, newQuantity: Int) {
-        let itemIndex = shoppingCart.firstIndex(where: { $0.product == cartItem.product } )!
-        shoppingCart[itemIndex].quantity = newQuantity
+        if let itemIndex = shoppingCart.firstIndex(where: { $0.product == cartItem.product } ) {
+            if newQuantity > 0 {
+                shoppingCart[itemIndex].quantity = newQuantity
+            } else {
+                removeCartItem(cartItem: cartItem)
+            }
+        }
     }
     
     func removeCartItem(cartItem: CartItem) {

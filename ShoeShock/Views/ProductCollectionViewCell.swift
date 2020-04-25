@@ -14,8 +14,6 @@ class ProductCollectionViewCell: UICollectionViewCell {
     
     var addToCartButtonAction: ( () -> () )?
     
-//    @IBOutlet weak var productView: UIView!
-//    @IBOutlet weak var productRectangle: UIView!
     
     @IBOutlet weak var manufacturerLabel: UILabel!
     @IBOutlet weak var productLabel: UILabel!
@@ -23,9 +21,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var addToCartButton: UIButton!
     @IBOutlet weak var detailsButton: UIButton!
-    
-    //@IBOutlet weak var contentView: UIView!
-    
+        
     
     @IBAction func addToCartTapped(_ sender: UIButton) {        
         addToCartButtonAction?()
@@ -60,9 +56,6 @@ class ProductCollectionViewCell: UICollectionViewCell {
         contentView.clipsToBounds = true
     }
     
-//    func addItemToCart(product: Product) {
-//        DataService.instance.addCartItem(product: product)
-//    }
     
     //MARK: - Methods for Custom Class to display on Interface Builder
     
