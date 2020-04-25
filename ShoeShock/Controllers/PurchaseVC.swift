@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PurchaseViewVC: UIViewController {
+class PurchaseVC: UIViewController {
 
     @IBOutlet weak var purchaseConfirmationLabel: UILabel!
     

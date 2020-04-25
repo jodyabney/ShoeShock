@@ -393,10 +393,10 @@
             </objects>
             <point key="canvasLocation" x="2682.4000000000001" y="-42.857142857142861"/>
         </scene>
-        <!--Purchase ViewVC-->
+        <!--PurchaseVC-->
         <scene sceneID="MEg-l2-uoV">
             <objects>
-                <viewController id="jIB-xw-0pE" customClass="PurchaseViewVC" customModule="ShoeShock" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="jIB-xw-0pE" customClass="PurchaseVC" customModule="ShoeShock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Y3e-Qe-cak">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
