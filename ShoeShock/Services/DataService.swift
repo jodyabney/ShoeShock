@@ -57,6 +57,7 @@ class DataService {
     
     private var shoppingCart: [CartItem] = []
     
+    
     //MARK: - Public datamarts
     
     public func getManufacturers() -> [Manufacturer] {
@@ -89,6 +90,10 @@ class DataService {
     
     func getCart() -> [CartItem?] {
         return shoppingCart
+    }
+    
+    func clearCart() {
+        shoppingCart.removeAll()
     }
     
     func addCartItem(cartItem: CartItem) {

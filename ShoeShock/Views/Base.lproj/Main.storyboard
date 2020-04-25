@@ -11,7 +11,7 @@
         <!--ShoeShock-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ProductsViewController" customModule="ShoeShock" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ProductsVC" customModule="ShoeShock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -218,7 +218,7 @@
         <!--Cart-->
         <scene sceneID="7XN-Cc-S2L">
             <objects>
-                <viewController id="GQu-WV-3SS" customClass="CartViewController" customModule="ShoeShock" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="GQu-WV-3SS" customClass="CartVC" customModule="ShoeShock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5sA-IU-ymt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -341,14 +341,17 @@
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nx5-BG-Y70" customClass="RoundedButton" customModule="ShoeShock" customModuleProvider="target">
                                 <rect key="frame" x="40" y="718" width="295" height="40"/>
-                                <color key="backgroundColor" red="0.90145915750000005" green="0.30519074200000001" blue="0.40782475470000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.90145915750000005" green="0.30519074200000001" blue="0.40782475470000001" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="1CK-RG-Sir"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="NEXT">
+                                <state key="normal" title="PURCHASE">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <segue destination="jIB-xw-0pE" kind="presentation" identifier="SegueToPurchaseVC" id="7dR-Fl-IfL"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lhT-Iz-YZu">
                                 <rect key="frame" x="280" y="662.66666666666663" width="75" height="27.333333333333371"/>
@@ -382,6 +385,7 @@
                     <connections>
                         <outlet property="cartTotalLabel" destination="lhT-Iz-YZu" id="Thm-bF-beg"/>
                         <outlet property="numberOfItemsLabel" destination="Mcb-cA-yjX" id="D2Z-Bd-KQL"/>
+                        <outlet property="purchaseButton" destination="Nx5-BG-Y70" id="OU0-sT-Nng"/>
                         <outlet property="tableView" destination="JpD-r4-mON" id="gYa-q7-FHB"/>
                     </connections>
                 </viewController>
@@ -389,10 +393,58 @@
             </objects>
             <point key="canvasLocation" x="2682.4000000000001" y="-42.857142857142861"/>
         </scene>
-        <!--Details View Controller-->
+        <!--Purchase ViewVC-->
+        <scene sceneID="MEg-l2-uoV">
+            <objects>
+                <viewController id="jIB-xw-0pE" customClass="PurchaseViewVC" customModule="ShoeShock" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Y3e-Qe-cak">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Purchase Complete" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xBd-7A-xEO">
+                                <rect key="frame" x="20" y="362.66666666666669" width="335" height="33"/>
+                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WBh-uq-Seg" customClass="RoundedButton" customModule="ShoeShock" customModuleProvider="target">
+                                <rect key="frame" x="40" y="664" width="295" height="40"/>
+                                <color key="backgroundColor" red="0.97590488200000003" green="0.2339142263" blue="0.39605706930000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="UXg-cJ-1e2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="RETURN TO SHOP">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="returnToShopTapped:" destination="jIB-xw-0pE" eventType="touchUpInside" id="VJu-yv-ySY"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="FQQ-RZ-hNx" firstAttribute="trailing" secondItem="xBd-7A-xEO" secondAttribute="trailing" constant="20" id="JLI-6f-fOE"/>
+                            <constraint firstItem="FQQ-RZ-hNx" firstAttribute="bottom" secondItem="WBh-uq-Seg" secondAttribute="bottom" constant="20" id="TKH-WH-AKI"/>
+                            <constraint firstItem="xBd-7A-xEO" firstAttribute="leading" secondItem="FQQ-RZ-hNx" secondAttribute="leading" constant="20" id="U0M-GH-Bg5"/>
+                            <constraint firstItem="xBd-7A-xEO" firstAttribute="centerY" secondItem="Y3e-Qe-cak" secondAttribute="centerY" id="ZDv-wH-f4v"/>
+                            <constraint firstItem="WBh-uq-Seg" firstAttribute="leading" secondItem="FQQ-RZ-hNx" secondAttribute="leading" constant="40" id="hJ7-OQ-bey"/>
+                            <constraint firstItem="FQQ-RZ-hNx" firstAttribute="trailing" secondItem="WBh-uq-Seg" secondAttribute="trailing" constant="40" id="zGb-0T-2iC"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="FQQ-RZ-hNx"/>
+                    </view>
+                    <connections>
+                        <outlet property="purchaseConfirmationLabel" destination="xBd-7A-xEO" id="fTV-Ow-eiO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pAI-ex-DK1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3563" y="-43"/>
+        </scene>
+        <!--DetailsVC-->
         <scene sceneID="Itd-Ki-Q18">
             <objects>
-                <viewController id="amK-TA-YQo" customClass="DetailsViewController" customModule="ShoeShock" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="amK-TA-YQo" customClass="DetailsVC" customModule="ShoeShock" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OII-8u-8Ln">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -420,9 +472,6 @@
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="78B-77-5Yu">
                                         <rect key="frame" x="0.0" y="126.33333333333336" width="335" height="189.66666666666663"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="374" id="erh-Gn-a0X"/>
-                                        </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7x9-he-K9B">
                                         <rect key="frame" x="98.666666666666686" y="326" width="138" height="46"/>
