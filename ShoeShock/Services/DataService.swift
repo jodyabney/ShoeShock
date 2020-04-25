@@ -14,13 +14,15 @@ class DataService {
     
     //MARK: - Private datamarts
     
+    private var productForDetailsVC: Product?
+    
     private let manufacturers: [Manufacturer] = [
         Manufacturer(id: .all, color: .clear),
-        Manufacturer(id: .nike, color: #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)),
+        Manufacturer(id: .nike, color: #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)),
         Manufacturer(id: .addidas, color: #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)),
-        Manufacturer(id: .jordan, color: #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)),
-        Manufacturer(id: .puma, color: #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)),
-        Manufacturer(id: .reebok, color: #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1))
+        Manufacturer(id: .jordan, color: #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)),
+        Manufacturer(id: .puma, color: #colorLiteral(red: 0.5058823824, green: 0.3372549117, blue: 0.06666667014, alpha: 1)),
+        Manufacturer(id: .reebok, color: #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1))
     ]
     
     private var products: [Product] = [
@@ -59,6 +61,14 @@ class DataService {
     
     
     //MARK: - Public datamarts
+    
+    public func getProductForDetailVC() -> Product {
+        return productForDetailsVC!
+    }
+    
+    public func setProductForDetailVC(product: Product) {
+        productForDetailsVC = product
+    }
     
     public func getManufacturers() -> [Manufacturer] {
         return manufacturers

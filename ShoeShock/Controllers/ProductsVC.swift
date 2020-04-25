@@ -19,8 +19,6 @@ class ProductsVC: UIViewController, UICollectionViewDelegate, UICollectionViewDa
     // which Manufacturer has been selected - default to All
     var selectedManufacturerID: ValidManufacturers = .all
     
-    var productForDetailVC: Product?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -113,67 +111,57 @@ class ProductsVC: UIViewController, UICollectionViewDelegate, UICollectionViewDa
                     }
                     self.updateCartIcon()
                 }
-                    
-                    // let the cell update itself
-                    cell.updateView(for: product)
-                    cell.sizeToFit()
-                    return cell
-                } else {
-                    return ProductCollectionViewCell()
+                
+                cell.detailsButtonAction = {
+                    DataService.instance.setProductForDetailVC(product: product)
                 }
                 
-                default:
-                return UICollectionViewCell()
+                // let the cell update itself
+                cell.updateView(for: product)
+                cell.sizeToFit()
+                return cell
+            } else {
+                return ProductCollectionViewCell()
             }
             
+        default:
+            return UICollectionViewCell()
         }
         
-        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        switch collectionView {
             
-            switch collectionView {
-                
-            case manufacturersCollectionView:
-                selectedManufacturerID = DataService.instance.getManufacturers()[indexPath.row].id
-                manufacturersCollectionView.reloadData()
-                productsCollectionView.reloadData()
-                
-            case productsCollectionView:
-                let product = DataService.instance.getProducts(for: selectedManufacturerID)[indexPath.row]
-                productForDetailVC = product
-                performSegue(withIdentifier: "SegueToDetailsVC", sender: productForDetailVC)
-                
-            default:
-                return
-            }
+        case manufacturersCollectionView:
+            selectedManufacturerID = DataService.instance.getManufacturers()[indexPath.row].id
+            manufacturersCollectionView.reloadData()
+            productsCollectionView.reloadData()
             
+        default:
+            return
         }
         
-        
-        //MARK: - Segue Methods
-        
-        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            if segue.identifier == "SegueToCartVC" {
-                if let cartVC = segue.destination as? CartVC {
-                    // set up back button to only display the arrow (no title)
-                    let barButton = UIBarButtonItem()
-                    barButton.title = ""
-                    navigationItem.backBarButtonItem = barButton
-                    
-                    // pass the category data
-                    //assert(sender as? Category != nil)
-                    //productVC.initProducts(category: sender as! Category)
-                }
-            } else if segue.identifier == "SegueToDetailsVC" {
-                if let detailsVC = segue.destination as? DetailsVC {
-                    let barButton = UIBarButtonItem()
-                    barButton.title = ""
-                    navigationItem.backBarButtonItem = barButton
-                    
-                    // pass the product data
-                    detailsVC.initProductDetail(for: productForDetailVC!)
-                }
-            }
+    }
+    
+    
+    //MARK: - Segue Methods
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "SegueToCartVC" {
+            // set up back button to only display the arrow (no title)
+            let barButton = UIBarButtonItem()
+            barButton.title = ""
+            navigationItem.backBarButtonItem = barButton
+            
+        } else if segue.identifier == "SegueToDetailsVC" {
+            // set up back button to only display the arrow (no title)
+            let barButton = UIBarButtonItem()
+            barButton.title = ""
+            navigationItem.backBarButtonItem = barButton
         }
-        
+    }
+    
 }
 

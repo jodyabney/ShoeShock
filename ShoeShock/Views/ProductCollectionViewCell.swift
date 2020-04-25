@@ -14,6 +14,8 @@ class ProductCollectionViewCell: UICollectionViewCell {
     
     var addToCartButtonAction: ( () -> () )?
     
+    var detailsButtonAction: ( () -> () )?
+    
     
     @IBOutlet weak var manufacturerLabel: UILabel!
     @IBOutlet weak var productLabel: UILabel!
@@ -26,7 +28,12 @@ class ProductCollectionViewCell: UICollectionViewCell {
     @IBAction func addToCartTapped(_ sender: UIButton) {        
         addToCartButtonAction?()
     }
-
+    
+    
+    @IBAction func detailsTapped(_ sender: UIButton) {
+        detailsButtonAction?()
+    }
+    
     
     func updateView(for product: Product) {
         manufacturerLabel.text = product.manufacturerID.rawValue.uppercased()
@@ -69,6 +76,8 @@ class ProductCollectionViewCell: UICollectionViewCell {
         
         // Add action to perform when the Add to Cart button is tapped
         self.addToCartButton.addTarget(self, action: #selector(addToCartTapped(_:)), for: .touchUpInside)
+        
+        self.detailsButton.addTarget(self, action: #selector(detailsTapped(_:)), for: .touchUpInside)
     }
         
         //customizeView()
