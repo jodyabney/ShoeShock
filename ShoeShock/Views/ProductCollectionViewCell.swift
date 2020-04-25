@@ -32,22 +32,12 @@ class ProductCollectionViewCell: UICollectionViewCell {
     }
 
     
-    let currencyFormatter: NumberFormatter = {
-        let nf = NumberFormatter()
-        nf.numberStyle = .currency
-        nf.currencySymbol = Locale.current.currencySymbol
-        nf.currencyDecimalSeparator = Locale.current.decimalSeparator
-        return nf
-    }()
-    
-
     func updateView(for product: Product) {
         manufacturerLabel.text = product.manufacturerID.rawValue.uppercased()
         manufacturerLabel.textColor = .white
         productLabel.text = product.title.uppercased()
         productLabel.textColor = .white
-        let price = Double(product.price)!
-        priceLabel.text = currencyFormatter.string(from: NSNumber(value: price))
+        priceLabel.text = CurrencyStringFormatter.instance.format(string: product.price)
         priceLabel.textColor = .white
         imageView.image = UIImage(named: product.imageName)
         

@@ -18,15 +18,6 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var numberOfItemsLabel: UILabel!
     
     
-    let currencyFormatter: NumberFormatter = {
-        let nf = NumberFormatter()
-        nf.numberStyle = .currency
-        nf.currencySymbol = Locale.current.currencySymbol
-        nf.currencyDecimalSeparator = Locale.current.decimalSeparator
-        return nf
-    }()
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -39,7 +30,7 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     func updateView() {
         // format and set cart total
         let total = DataService.instance.getCartTotal()
-        cartTotalLabel.text = currencyFormatter.string(from: NSNumber(value: total))
+        cartTotalLabel.text = CurrencyStringFormatter.instance.format(double: total)
         // get and set total quantity in cart
         let itemCount = DataService.instance.getCartItemCount()
         if itemCount == 1 {

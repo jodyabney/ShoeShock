@@ -19,19 +19,8 @@ class CartTableViewCell: UITableViewCell {
     
     
     @IBOutlet weak var stepper: UIStepper!
-    
-
     @IBOutlet weak var quantityLabel: UILabel!
     
-    
-    let currencyFormatter: NumberFormatter = {
-        let nf = NumberFormatter()
-        nf.numberStyle = .currency
-        nf.currencySymbol = Locale.current.currencySymbol
-        nf.currencyDecimalSeparator = Locale.current.decimalSeparator
-        return nf
-    }()
-
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -57,8 +46,7 @@ class CartTableViewCell: UITableViewCell {
         viewForProductImage.clipsToBounds = true
         productImage.image = UIImage(named: cartItem.product.imageName)
         titleLabel.text = cartItem.product.title.uppercased()
-        let price = Double(cartItem.product.price)!
-        priceLabel.text = currencyFormatter.string(from: NSNumber(value: price))
+        priceLabel.text = CurrencyStringFormatter.instance.format(string: cartItem.product.price)
         quantityLabel.text = String(cartItem.quantity)
         stepper.value = Double(cartItem.quantity)
     }
