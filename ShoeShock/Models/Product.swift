@@ -15,14 +15,16 @@ class Product {
     private(set) public var manufacturerID: ValidManufacturers
     private(set) public var market: Market
     public var cartIndicator: Bool
+    private(set) public var description: String
     
-    init(title: String, price: String, imageName: String, manufacturerID: ValidManufacturers, market: Market, cartIndicator: Bool) {
+    init(title: String, price: String, imageName: String, manufacturerID: ValidManufacturers, market: Market, cartIndicator: Bool, description: String) {
         self.title = title
         self.price = price
         self.imageName = imageName
         self.manufacturerID = manufacturerID
         self.market = market
         self.cartIndicator = cartIndicator
+        self.description = description
     }
     
     func updateCartIndicator(to cartIndicator: Bool) {

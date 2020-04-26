@@ -12,12 +12,14 @@ class DetailsVC: UIViewController {
 
     private(set) public var product: Product?
     
-    @IBOutlet weak var manufacturerLabel: UILabel!
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var manufAndTitleLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var productImageView: UIImageView!
 
     @IBOutlet weak var addToCartButton: UIButton!
+    
+    @IBOutlet weak var descriptionLabel: UILabel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,10 +42,10 @@ class DetailsVC: UIViewController {
     
 
     func updateView() {
-        manufacturerLabel.text = product!.manufacturerID.rawValue
-        titleLabel.text = product!.title
+        manufAndTitleLabel.text = product!.manufacturerID.rawValue + " " + product!.title
         priceLabel.text = CurrencyStringFormatter.instance.format(string: product!.price)
         productImageView.image = UIImage(named: product!.imageName)
+        descriptionLabel.text = product?.description
         
         navigationItem.title = (product?.manufacturerID.rawValue)! + " " + product!.title
         // set view background based on product manufacturer

@@ -17,7 +17,7 @@ class PurchaseVC: UIViewController {
 
         let poNum = Int.random(in: 10000...99999)
         
-        purchaseConfirmationLabel.text = "Congratulations!\n\nYour order (\(poNum)) has been submitted. "
+        purchaseConfirmationLabel.text = "Congratulations!\n\nYour order #\(poNum) has been submitted. "
     }
     
 
