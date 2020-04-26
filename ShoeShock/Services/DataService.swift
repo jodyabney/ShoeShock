@@ -26,6 +26,17 @@ class DataService {
     ]
     
     private var products: [Product] = [
+        // Nike
+        Product(title: "Air Force 1 Low", price: "90.00", imageName: "nike_air_force_1_low.png",
+                manufacturerID: .nike, market: .shoes, cartIndicator: false, description: "Product #: 24300657\nAn Absolute Essential\nThe Nike Air Force 1 Low is inarguably one of the most essential sneakers of all time."),
+        Product(title: "Air Max 2090", price: "150.00", imageName: "nike_air_max_2090.png",
+                manufacturerID: .nike, market: .shoes, cartIndicator: false, description: ""),
+        Product(title: "Air Max Plus", price: "170.00", imageName: "nike_air_max_plus.png",
+                manufacturerID: .nike, market: .shoes, cartIndicator: false, description: "Product #: J2029001\nMaking Waves\nThe Men’s Nike Air Max Plus is a certified icon of the Nike Air Max family. First released in 1998, the Air Max Plus was instantly notable for its then-new Tuned Air technology as well as the eye-catching design."),
+        Product(title: "Air Little Posite One", price: "180.00", imageName: "nike_little_posite_one.png",
+                manufacturerID: .nike, market: .shoes, cartIndicator: false, description: "Product #: 44791011\nFuturistic Foamposite Technology for Kids\nThe Nike Little Posite One is a kids’ shoe modeled after the Nike Air Foamposite One, which is Penny Hardaway’s signature model. This basketball sneaker has a Foamposite upper for durable performance and a futuristic, trendy appearance."),
+        Product(title: "Air More Uptempo '96", price: "160.00", imageName: "nike_air_more_uptempo_'96.png",
+                manufacturerID: .nike, market: .shoes, cartIndicator: false, description: "Product #: J6129001\nBig Air\nThe Nike Air More Uptempo is one of the most memorable basketball sneakers of the 1990s. One look, and you’ll know why. Released in 1996, the Air More Uptempo featured the boldest and most unapologetic branding ever on a Nike shoe, and few have rivaled it since."),
         // Reeboks
         Product(title: "Aztrek", price: "80.00", imageName: "reebok_aztrek.png",
                 manufacturerID: .reebok, market: .shoes, cartIndicator: false,
@@ -44,9 +55,9 @@ class DataService {
         Product(title: "Originals NMD R1.V2", price: "130.00", imageName: "adidas_originals_nmd_R1.v2.png",
                 manufacturerID: .addidas, market: .shoes, cartIndicator: false, description: "Product #: FX4148\nPut some pep in your step with the adidas Originals NMD R1.V2. The modern silhouette teams up with retro details to create a truly stand-out look. Your new favorite sneakers are right here."),
         Product(title: "Originals Pusha T Ozweego", price: "130.00", imageName: "adidas_originals_pusha_t_ozweego.png",
-                manufacturerID: .addidas, market: .shoes, cartIndicator: false, description: "Product #: FV2484M\nRock a retro look with futuristic comfort in the adidas Originals Ozweego. Inspired by the late ’90s and early 2000s, this shoe shows off a mesh and suede upper that’s sure to turn some heads. This version reflects the vision of hip-hop artist Pusha T. Adiprene technology is positioned under the heel and forefoot for cushioned support and impact absorption. The textile lining offers additional comfort, and a classic lace closure design completes the look."),
+                manufacturerID: .addidas, market: .shoes, cartIndicator: false, description: "Product #: FV2484M\nRock a retro look with futuristic comfort in the adidas Originals Ozweego. Inspired by the late ’90s and early 2000s, this shoe shows off a mesh and suede upper that’s sure to turn some heads. This version reflects the vision of hip-hop artist Pusha T."),
         Product(title: "Originals Ultraboost 19", price: "180.00", imageName: "adidas_ultraboost_19.png",
-                manufacturerID: .addidas, market: .shoes, cartIndicator: false, description: "Product #: FW0525\nRunning Has Never Been Easier\nPush your running to the next level with the adidas Ultra Boost 2019. Specifically designed to accommodate the running aficionado, these shoes feature all the right components to give you an extra boost with every stride – hence the name. Break all your personal bests with the energy-filled features that help power you when your endurance is running low."),
+                manufacturerID: .addidas, market: .shoes, cartIndicator: false, description: "Product #: FW0525\nRunning Has Never Been Easier\nPush your running to the next level with the adidas Ultra Boost 2019. Specifically designed to accommodate the running aficionado, these shoes feature all the right components to give you an extra boost with every stride – hence the name. "),
         Product(title: "Originals Ultraboost DNA", price: "180.00", imageName: "adidas_ultraboost_dna.png",
                 manufacturerID: .addidas, market: .shoes, cartIndicator: false, description: "Product #: AQ5929\nThe adidas Ultraboost DNA is streamlined and sleek for amazing style and comfort while you run. These kicks are built to move naturally and provide support and comfort right where you need it."),
         // Jordan
@@ -60,17 +71,6 @@ class DataService {
                 manufacturerID: .jordan, market: .shoes, cartIndicator: false, description: "Product #: K5692600\nA Sneaker For the Ages\nThe Men’s Air Jordan 3 Retro is one of the most beloved sneakers of all time. Almost any Air Jordan connoisseur will rank the Jordan 3 among their top five favorite models of the entire line. It’s truly one of the most iconic sneakers ever created, and a big reason sneaker culture exists as we know it today."),
         Product(title: "Retro 13", price: "190.00", imageName: "jordan_retro_9.png",
                 manufacturerID: .jordan, market: .shoes, cartIndicator: false, description: "Product #: 14571030\nSneakers Fit for Anyone\nThe year Michael Jordan earned the nickname \"Black Cat\" was the year legendary shoe guru Tinker Hatfield decided to design the next Air Jordan after an actual panther, resulting in the Jordan Retro 13."),
-        // Nike
-        Product(title: "Air Force 1 Low", price: "90.00", imageName: "nike_air_force_1_low.png",
-                manufacturerID: .nike, market: .shoes, cartIndicator: false, description: "Product #: 24300657\nAn Absolute Essential\nThe Nike Air Force 1 Low is inarguably one of the most essential sneakers of all time."),
-        Product(title: "Air Max 2090", price: "150.00", imageName: "nike_air_max_2090.png",
-                manufacturerID: .nike, market: .shoes, cartIndicator: false, description: ""),
-        Product(title: "Air Max Plus", price: "170.00", imageName: "nike_air_max_plus.png",
-                manufacturerID: .nike, market: .shoes, cartIndicator: false, description: "Product #: J2029001\nMaking Waves\nThe Men’s Nike Air Max Plus is a certified icon of the Nike Air Max family. First released in 1998, the Air Max Plus was instantly notable for its then-new Tuned Air technology as well as the eye-catching design."),
-        Product(title: "Air Little Posite One", price: "180.00", imageName: "nike_little_posite_one.png",
-                manufacturerID: .nike, market: .shoes, cartIndicator: false, description: "Product #: 44791011\nFuturistic Foamposite Technology for Kids\nThe Nike Little Posite One is a kids’ shoe modeled after the Nike Air Foamposite One, which is Penny Hardaway’s signature model. This basketball sneaker has a Foamposite upper for durable performance and a futuristic, trendy appearance."),
-        Product(title: "Air More Uptempo '96", price: "160.00", imageName: "nike_air_more_uptempo_'96.png",
-                manufacturerID: .nike, market: .shoes, cartIndicator: false, description: "Product #: J6129001\nBig Air\nThe Nike Air More Uptempo is one of the most memorable basketball sneakers of the 1990s. One look, and you’ll know why. Released in 1996, the Air More Uptempo featured the boldest and most unapologetic branding ever on a Nike shoe, and few have rivaled it since."),
         // Puma
         Product(title: "Clyde Hacked", price: "55.00", imageName: "puma_clyde_hacked.png",
                 manufacturerID: .puma, market: .shoes, cartIndicator: false, description: ""),
@@ -83,6 +83,7 @@ class DataService {
         Product(title: "RS-X3", price: "110.00", imageName: "puma_rs_x3.png",
                 manufacturerID: .puma, market: .shoes, cartIndicator: false, description: "Product #: 37157004\nPUMA’s revamping the iconic RS and bringing you the RS-X3. Mixed materials form an exciting and bold upper, while the classic rubber outsole offers traction and grip.")
     ]
+    
     
     private let categories: [Category] = [
         Category(name: "New", associatedProducts: nil),
